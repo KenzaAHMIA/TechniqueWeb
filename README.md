@@ -29,18 +29,18 @@ Traduction multilingue via des API
 ### <ins>Ergonomie (logo, couleurs, police, accessibilité)</ins>
 (à remplir)
 ### 1. Listes des pages 
-Page d’accueil.
+**Page d’accueil.**
 Fonctionnalité : Se connecter | Continuer sans se connecter
 Page de connexion | d’inscription
 Propose les deux méthodes en masquant / affichant la div d’inscription / de connexion.
 Redirige sur la page de traduction une fois l’utilisateur connecté.
 
-Page de traduction.
+**Page de traduction.**
 Fonctionnalité : texteArea pour rentrer son texte ; choix de la langue cible ; apparition des traductions provenant des API.
 Bouton ‘Traduire’ qui provoque l’apparition des traductions provenant des API qui proposent la langue cible choisie.
 Possibilité de choisir une traduction de référence pour l’éditer. Cliquer sur une des quatre traductions ouvre la page d’édition.
 
-Page d’édition de la traduction
+**Page d’édition de la traduction**
 Fonctionnalité : modifier le texte , copier-coller le texte.
 Propose un TextArea avec la traduction choisie provenant de la page précédente.
 Propose d’éditer de deux manières : soit en se servant des traductions des API (récupérées de la page précédente), soit en éditant soi-même le texte.
@@ -58,7 +58,7 @@ Onglet présent en haut de la page uniquement si l’utilisateur est connecté.
 Liste des traductions enregistrées pour l’utilisateur avec un aperçu langue-cible langue-source.
 Cliquer sur cet aperçu ouvre une page d’édition de la traduction.
 
-Page ‘Qui sommes-nous ?’
+**Page ‘Qui sommes-nous ?’**
 Page vitrine qui présente les membres du projet, le cadre du projet, nos différents diagrammes, notre cahier des charges, etc.
 
 
