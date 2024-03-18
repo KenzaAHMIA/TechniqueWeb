@@ -12,10 +12,10 @@ Traduction multilingue via des API
 ### État de l'art
 
 ### 1. Idées API
-1) Google cloud API (normalement fait tout)
+1) Google cloud API (normalement fait toutes les langues)
 2) DeepL  (pas de bengali)
-3) LibreTranslate (ok pour l'arabe et le bengali , chinois,  français) - https://libretranslate.com/?source=auto&target=en&q=
-4) IBM cloud (https://cloud.ibm.com/catalog/services/language-translator)
+3) [LibreTranslate](https://libretranslate.com/?source=auto&target=en&q=) -> ok pour l'arabe et le bengali , chinois,  français
+4) [IBM cloud](https://cloud.ibm.com/catalog/services/language-translator)
 
 - A tester d'autres APIs
 
