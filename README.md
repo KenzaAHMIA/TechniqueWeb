@@ -25,6 +25,62 @@ Traduction multilingue via des API
 
 
 
+
+
+
+### <ins>Ergonomie (logo, couleurs, police, accessibilité)</ins>
+(à remplir)
+
+
+### 1. Listes des pages 
+**Page d’accueil.**<br/>
+<ins>Fonctionnalité</ins> Se connecter | Continuer sans se connecter.
+Les deux redirigent sur la page de traduction.
+<ins>Page présente dans la navbar<ins> : oui.
+
+**Page et div de connexion | d’inscription**<br/>
+<ins>Fonctionnalité</ins> : s’inscrire / se connecter
+Il y a une page de connexion ET une div de connexion. Cette div est utilisée sur la page d’accueil. Elle est utilisée aussi sur la page d’édition de la traduction (si l’utilisateur veut enregistrer sa traduction). Le format <div> cachée permet de ne pas avoir besoin de quitter la page courante pour se connecter et donc de garder l’environnement actif avec toutes ses variables : les textes traduits notamment.
+Propose les deux méthodes en masquant / affichant la div d’inscription / de connexion.
+S’il s’agit de la page de connexion, redirige sur la page de traduction une fois l’utilisateur connecté.
+<ins>Page présente dans la navbar</ins> : si l’utilisateur n’est pas connecté. S’il est connecté, lien ‘Se déconnecter’ dans la navbar.
+
+
+**Page de traduction.**<br/>
+<ins>Fonctionnalité</ins> : texteArea pour rentrer son texte ; choix de la langue cible.
+Bouton ‘Traduire’ qui provoque l’apparition des traductions provenant des API qui proposent la langue cible choisie.
+<ins>Page présente dans la navbar</ins> : oui
+
+
+**Div des traductions proposées**<br/>
+<ins>Fonctionnalité</ins> : visualiser le résultat des traductions provenant des API.
+Div qui apparaît lorsqu’on appuie sur le bouton ‘Traduire’.
+Possibilité de choisir une traduction de référence pour l’éditer. Cliquer sur une des quatre traductions ou sur le petit crayon fait apparaître la div d’édition.
+<ins>Page présente dans la navbar</ins>: non
+
+**Div d’édition de la traduction**<br/>
+<ins>Fonctionnalité</ins>: modifier le texte , copier-coller le texte.
+Div qui apparaît lorsque l’utilisateur clique sur une des traductions proposées ou sur un bouton d’édition. 
+Propose un TextArea avec la traduction choisie provenant de la page précédente.
+Propose d’éditer de deux manières : soit en se servant des traductions des API (récupérées de la page précédente), soit en éditant soi-même le texte.
+Bouton enregistrer qui permet de garder ses traductions :
+	- Si l’utilisateur n’est pas connecté et qu’il clique sur ‘enregistrer ma traduction’ : enregistrer dans des variables les traductions et ouvrir la page de connexion | inscription. Puis revient à la page de traduction.
+	- Si l’utilisateur est connecté : affiche que la traduction est enregistrée mais ne quitte pas la page.
+Bouton ‘copier’ pour faciliter la copie du texte.
+Cette page n’est pas une page séparée de la page de Traduction. Il s’agit d’une div qui apparaît, afin de garder un aperçu sur les 
+<ins>Page présente dans la navbar</ins>:  non
+
+**Page de consultation des traductions (Mes traductions)**<br/>
+<ins>Fonctionnalité</ins>:  lister les traductions enregistrées pour un utilisateur.
+Liste des traductions enregistrées pour l’utilisateur avec un aperçu langue-cible langue-source.
+Cliquer sur cet aperçu ouvre la div d’édition de la traduction.
+<ins>Page présente dans la navbar</ins>:si l’utilisateur est connecté
+
+
+**Page ‘Qui sommes-nous ?’**<br/>
+Page vitrine qui présente les membres du projet, le cadre du projet, nos différents diagrammes, notre cahier des charges, etc.
+<ins>Page présente dans la navbar</ins>: oui
+
 ### <ins>Liste des fonctionnalités</ins> - Analyse fonctionnelle
 ### Fonctionnalité Principale
 - FP1  Traduire un texte de n’importe quelle langue source vers une langue cible parmi : chinois, arabe, bengali et français.
@@ -46,47 +102,6 @@ FS1 Ecrire ou coller un texte dans n’importe quelle langue source
 
 ### Scénario utilisateur
 Le visiteur peut choisir de se connecter ou non sur TradAPI. Lorsqu’il arrive sur le site, il a le choix de tester directement la traduction ou de créer un compte.
-
-
-### <ins>Ergonomie (logo, couleurs, police, accessibilité)</ins>
-(à remplir)
-
-
-### 1. Listes des pages 
-**Page d’accueil.**<br/>
-<ins>Fonctionnalité</ins> Se connecter | Continuer sans se connecter.
-Les deux redirigent sur la page de traduction.
-<ins>Page présente dans la navbar<ins> : oui.
-
-**Page de traduction.**<br/>
-<ins>Fonctionnalité</ins> : texteArea pour rentrer son texte ; choix de la langue cible ; apparition des traductions provenant des API.
-Bouton ‘Traduire’ qui provoque l’apparition des traductions provenant des API qui proposent la langue cible choisie.
-Possibilité de choisir une traduction de référence pour l’éditer. Cliquer sur une des quatre traductions ouvre la page d’édition.
-
-**Page d’édition de la traduction**<br/>
-<ins>Fonctionnalité</ins> : modifier le texte , copier-coller le texte.
-Propose un TextArea avec la traduction choisie provenant de la page précédente.
-Propose d’éditer de deux manières : soit en se servant des traductions des API (récupérées de la page précédente), soit en éditant soi-même le texte.
-
-
-Bouton enregistrer qui permet de garder ses traductions :
-    
-Si l’utilisateur n’est pas connecté et qu’il clique sur ‘enregistrer ma traduction’ : enregistrer dans des variables les traductions et ouvrir la page de connexion | inscription. Puis revient à la page de traduction.
-Si l’utilisateur estaccessibilité connecté : affiche que la traduction est enregistrée mais ne quitte pas la page.
-
-Bouton ‘copier’ pour faciliter la copie du texte.
-Cette page n’est pas une page séparée de la page de Traduction. Il s’agit d’une div qui apparaît, afin de garder un aperçu sur les 
-Page de consultation des traductions (Mes traductions)
-Onglet présent en haut de la page uniquement si l’utilisateur est connecté.
-Liste des traductions enregistrées pour l’utilisateur avec un aperçu langue-cible langue-source.
-Cliquer sur cet aperçu ouvre une page d’édition de la traduction.
-
-**Page ‘Qui sommes-nous ?’**<br/>
-Page vitrine qui présente les membres du projet, le cadre du projet, nos différents diagrammes, notre cahier des charges, etc.
-
-
-### <ins>Liste des fonctionnalités</ins>
-côté interface (formulaires, visualisations, etc) et côté serveur (librairies Python à utiliser, format des données à manipuler, bases de données) 
 
 
 ### <ins>Conception</ins>
