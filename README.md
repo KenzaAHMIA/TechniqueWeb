@@ -79,7 +79,10 @@ Cliquer sur cet aperçu ouvre la div d’édition de la traduction.
 
 **Page ‘Qui sommes-nous ?’**<br/>
 Page vitrine qui présente les membres du projet, le cadre du projet, nos différents diagrammes, notre cahier des charges, etc.
+
 <ins>Page présente dans la navbar</ins>: oui
+
+
 
 ### <ins>Liste des fonctionnalités</ins> - Analyse fonctionnelle
 ### Fonctionnalité Principale
