@@ -4,12 +4,12 @@ Traduction multilingue via des API
 
 # I. Cahier des charges 
 
-### <u>Public cible</u>
+### <ins>Public cible</ins>
 - tout public pour usage individuel
 - pas possible de traduire des grosses quantités des données à la fois
 
 
-### <u>État de l'art</u>
+### <ins>État de l'art</ins>
 
 ### 1. Idées API
 1) Google cloud API (normalement fait toutes les langues)
