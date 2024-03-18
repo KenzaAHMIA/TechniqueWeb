@@ -5,10 +5,9 @@ Traduction multilingue via des API
 # I. Cahier des charges 
 
 ### <ins>Public cible</ins>
-- tout public pour usage individuel
-- pas possible de traduire des grosses quantités des données à la fois 
-(limite 500 mots, à titre indicatif)
-
+- Notre public cible est tout utilisateur qui a besoin de traduire un texte mais ne sait pas quel traducteur utiliser.
+- Usage individuel et particulier, non industriel, car les API de traduction proposées sur le marché ont une limite de mots par mois. Peu de public, sinon il va falloir envisager un abonnement mensuel (les API en illimité sont payantes).
+- limitation de mots : 500 mots, à titre indicatif
 
 
 ### <ins>État de l'art</ins>
@@ -26,16 +25,38 @@ Traduction multilingue via des API
 
 
 
+### <ins>Liste des fonctionnalités</ins> - Analyse fonctionnelle
+### Fonctionnalité Principale
+- FP1  Traduire un texte de n’importe quelle langue source vers une langue cible parmi : chinois, arabe, bengali et français.
+
+### Fonctionnalités Secondaires
+FS1 Ecrire ou coller un texte dans n’importe quelle langue source
+- Choisir une langue cible
+- Comparer les traductions
+- Editer les traductions en piochant entre les différentes traductions proposées
+- Editer le texte traduit directement
+- Copier le texte facilement (bouton copier)
+- Créer un compte
+- Se connecter / Se déconnecter
+- Enregistrer nos traductions (BDD)
+- Consulter nos traductions (triées par dernière modification)
+- Modifier nos traductions
+
+: « Bête à cornes » et « Diagramme pieuvre »
+
+### Scénario utilisateur
+Le visiteur peut choisir de se connecter ou non sur TradAPI. Lorsqu’il arrive sur le site, il a le choix de tester directement la traduction ou de créer un compte.
 
 
 ### <ins>Ergonomie (logo, couleurs, police, accessibilité)</ins>
 (à remplir)
+
+
 ### 1. Listes des pages 
 **Page d’accueil.**<br/>
-<ins>Fonctionnalité</ins> : Se connecter | Continuer sans se connecter
-Page de connexion | d’inscription
-Propose les deux méthodes en masquant / affichant la div d’inscription / de connexion.
-Redirige sur la page de traduction une fois l’utilisateur connecté.
+<ins>Fonctionnalité</ins> Se connecter | Continuer sans se connecter.
+Les deux redirigent sur la page de traduction.
+<ins>Page présente dans la navbar<ins> : oui.
 
 **Page de traduction.**<br/>
 <ins>Fonctionnalité</ins> : texteArea pour rentrer son texte ; choix de la langue cible ; apparition des traductions provenant des API.
