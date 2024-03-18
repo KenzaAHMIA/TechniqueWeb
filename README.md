@@ -26,15 +26,15 @@ Traduction multilingue via des API
 
 
 
-### Ergonomie (logo, couleurs, police, accessibilité)
+### <ins>Ergonomie (logo, couleurs, police, accessibilité)</ins>
 (à remplir)
 
 
-### Liste des fonctionnalités 
+### <ins>Liste des fonctionnalités</ins>
 côté interface (formulaires, visualisations, etc) et côté serveur (librairies Python à utiliser, format des données à manipuler, bases de données) 
 
 
-### Conception 
+### <ins>Conception</ins>
 répartition des tâches au sein du groupe
 (à remplir)
 
