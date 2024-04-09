@@ -1,0 +1,42 @@
+main
+{
+ padding-top: 30px;
+}
+
+.container
+{
+ width: 50vh;
+}
+
+p
+{
+ text-align: justify;
+}
+
+fieldset
+{
+ display: none;
+}
+
+fieldset.active
+{
+ display: block;
+}
+
+.form-group, .form-check
+{
+ padding-bottom: 20px;
+}
+
+.superposable
+{
+ position: relative;
+}
+.objet-superpose
+{
+ z-index: 1;
+ position: absolute;
+ bottom: 10px;
+ right: 10px;
+}
+
