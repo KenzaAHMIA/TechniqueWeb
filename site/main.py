@@ -5,8 +5,13 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 
+import googletrans  # pour installation : conda install -c conda-forge googletrans - pip donne des erreurs
+from googletrans import Translator
+
+
 import json
 import os
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -39,3 +44,22 @@ async def recettes(request: Request):
 @app.get("/history", response_class=HTMLResponse)
 async def recettes(request: Request):
 	return templates.TemplateResponse("history.html", {"request":request})
+
+
+# googletrans # 
+@app.post("/translate")
+async def translate_text(request: Request):
+	try:
+		data = await request.json()
+		text_to_translate = data.get("text", "")
+		target_language = data.get("target", "en")  # anglais par défaut
+		# target_language = 'asdfasdfasd'  # delete error
+		
+		translator = Translator()
+		translation = translator.translate(text_to_translate, dest=target_language).text
+		data = {"translation": translation}
+		return JSONResponse(content=data)
+	except Exception as e:
+		error_message = "An error occurred during translation: " + str(e)
+		return JSONResponse(content={"error": error_message}, status_code=500)
+

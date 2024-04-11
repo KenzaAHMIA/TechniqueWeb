@@ -50,8 +50,17 @@ $('form').submit(function(event) {
   // i est le nombre d'API qui ont fonctionné.
   let i = 1;
   i = getTranslatePlus(textarea.val(), translatePlusLang[lang], i);
+
   // TODO appeler les fonctions des autres API
+  
+  // appel fonction googletrans - shami 
+  i = getGoogletrans(textarea.val(), translatePlusLang[lang], i);
+
+
+
   // i = getDeepl(textarea.val(), deepLLang[lang], i);
+
+
 
   // Affiche la classe des traductions des APIs
   $("#spinner").css("display", "none");
@@ -118,5 +127,45 @@ function getTranslatePlus(text, target_language, i) {
    //add_translation("Debug mode", "translatePlus", i);
    //return i + 1; // a fonctionné. 
  }
+
+
+ // ----------------------- googletrans  -----------------------
+function getGoogletrans(text, target_language, i) {
+  var data = {
+    text: text,
+    source: "auto", // Détection automatique de la langue par googletrans
+    target: target_language
+   };
+
+  // POST request to the backend
+  fetch("/translate", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+  })
+  .then(response => {
+    if (!response.ok) {
+      googletrans_output.text("Une erreur s'est produite lors de la connexion à l'API de translatePlus.");
+      throw new Error('Network response was not ok. Response code: ' + response);
+    }
+    return response.json();
+    })
+    .then(data => {
+      var output_text = data.translation;
+      // Ajout de la traduction dans la balise
+      add_translation(output_text, "googletrans", i+1);
+      return i + 1; //Ecris la prochaine api dans la colonne suivante.
+     })
+     .catch(error => {
+      console.error('Error:', error);
+    });
+    return i;
+
+  }
+// ----------------- end googletrans -----------------
+
+
 
 });
