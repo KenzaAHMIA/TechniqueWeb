@@ -52,7 +52,7 @@ $('form').submit(function(event) {
   i = getTranslatePlus(textarea.val(), translatePlusLang[lang], i);
 
   // TODO appeler les fonctions des autres API
-  
+
   // appel fonction googletrans - shami 
   i = getGoogletrans(textarea.val(), translatePlusLang[lang], i);
 
@@ -91,7 +91,7 @@ const apiKey_tp = '83168afac2c13b8117482eb869bf5872f144ae5c';
 // renvoyer une valeur de i. Soit i + 1 si l'API a réussi,
 // soit i si elle n'a pas réussi.
 function getTranslatePlus(text, target_language, i) {
-  var data = {
+  /*var data = {
    text: text,
    source: "auto", // Détection automatique de la langue par translatePlus
    target: target_language
@@ -104,7 +104,6 @@ function getTranslatePlus(text, target_language, i) {
    body: JSON.stringify(data)})
    .then(response => {
     if (!response.ok) {
-      translatePlus_output.text("Une erreur s'est produite lors de la connexion à l'API de translatePlus.");
       throw new Error('Network response was not ok. Response code: ' + response);
     }
     return response.json();
@@ -118,14 +117,14 @@ function getTranslatePlus(text, target_language, i) {
     .catch(error => {
      console.error('Error:', error);
    });
-   return i;
+   return i;*/
 
    // Commenter le code précédent et utiliser ce code en cas de débugage d'une
    // autre API afin et décommenter les deux lignes suivantes afin
    // d'économiser des requêtes HTTP vers translatePlus
 
-   //add_translation("Debug mode", "translatePlus", i);
-   //return i + 1; // a fonctionné. 
+   add_translation("Debug mode", "translatePlus", i);
+   return i + 1; // a fonctionné.
  }
 
 
@@ -147,7 +146,6 @@ function getGoogletrans(text, target_language, i) {
   })
   .then(response => {
     if (!response.ok) {
-      googletrans_output.text("Une erreur s'est produite lors de la connexion à l'API de translatePlus.");
       throw new Error('Network response was not ok. Response code: ' + response);
     }
     return response.json();
@@ -155,7 +153,7 @@ function getGoogletrans(text, target_language, i) {
     .then(data => {
       var output_text = data.translation;
       // Ajout de la traduction dans la balise
-      add_translation(output_text, "googletrans", i+1);
+      add_translation(output_text, "Google Translate", i);
       return i + 1; //Ecris la prochaine api dans la colonne suivante.
      })
      .catch(error => {

@@ -5,8 +5,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 
-import googletrans  # pour installation : conda install -c conda-forge googletrans - pip donne des erreurs
 from googletrans import Translator
+# pour installation : conda install -c conda-forge googletrans
+# ou : pip3 install googletrans==3.1.0a0
 
 
 import json
