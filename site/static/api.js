@@ -6,7 +6,8 @@ const traduire = $('#traduire');
 const textarea = $('#input-text');
 const api_div = $('#api');
 
-const apiRes = $("#api-res")
+var old_text = "";
+
 //const translatePlus_output = $('#translatePlus-output');
 
 // ----------------- language codes ----------------
@@ -35,42 +36,35 @@ $('form').submit(function(event) {
  if (text.length == 0) {
   return;
  }
-  // Affiche la div de chargement avec Spinner à la place du texte
-  // "Traductions trouvées..."
-  $("#spinner").css("display", "block");
-  $("#messageApiOk").css("display","none");
+  if (textarea.val() != old_text)
+  {
+   // Affiche la div de chargement avec Spinner à la place du texte
+   // "Traductions trouvées..."
+   // show spinner
+   $("#spinner").css("display", "block");
+   $("#messageApiOk").css("display","none");
 
-  // Cache les balises des anciennes traductions pour les 4 api
-  $("#api_div").removeClass('active');
+   // Cache les balises des anciennes traductions pour les 4 api
+   $("#api").removeClass('active');
 
-  // Cache l'édition de l'ancienne traduction
-  $("#edit-div").removeClass('active');
+   // Cache l'édition de l'ancienne traduction
+   $("#edit-div").removeClass('active');
 
-  for (let index = 1; index < 4; index++) {
-   $("#api-col-" + index).css("display", "none");
+   for (let index = 1; index < 4; index++) {
+    $("#api-col-" + index).css("display", "none");
+   }
+
+   // ------------ récupération des traductions ------------
+   // i est le nombre d'API qui ont fonctionné.
+   let i = 1;
+   getTranslatePlus(textarea.val(), lang, i);
+
+   // Affiche la classe des traductions des APIs
+   api_div.addClass('active');
+
+   // Pour éviter de rappeler les API quand le texte est identique
+   old_text = textarea.val();
   }
-
-  // ------------ récupération des traductions ------------
-  // i est le nombre d'API qui ont fonctionné.
-  let i = 1;
-  i = getTranslatePlus(textarea.val(), translatePlusLang[lang], i);
-
-  // TODO appeler les fonctions des autres API
-
-  // appel fonction googletrans - shami 
-  i = getGoogletrans(textarea.val(), translatePlusLang[lang], i);
-
-
-
-  // i = getDeepl(textarea.val(), deepLLang[lang], i);
-
-
-
-  // Affiche la classe des traductions des APIs
-  $("#spinner").css("display", "none");
-  $("#messageApiOk").css("display","block");
-  api_div.addClass('active');
-
 });
 
 // ----------------- add_ranslation ----------------
@@ -95,10 +89,11 @@ const apiKey_tp = '83168afac2c13b8117482eb869bf5872f144ae5c';
 // renvoyer une valeur de i. Soit i + 1 si l'API a réussi,
 // soit i si elle n'a pas réussi.
 function getTranslatePlus(text, target_language, i) {
-  /*var data = {
+  /*var lang = translatePlusLang[target_language];
+  var data = {
    text: text,
    source: "auto", // Détection automatique de la langue par translatePlus
-   target: target_language
+   target: lang
   };
   fetch(apiUrl_tp, {
    method: "POST",
@@ -107,6 +102,7 @@ function getTranslatePlus(text, target_language, i) {
     "X-API-KEY": apiKey_tp},
    body: JSON.stringify(data)})
    .then(response => {
+    hideSpinner();
     if (!response.ok) {
       throw new Error('Network response was not ok. Response code: ' + response);
     }
@@ -116,28 +112,30 @@ function getTranslatePlus(text, target_language, i) {
      var output_text = protectedData.translations.translation;
      // Ajout de la traduction dans la balise
      add_translation(output_text, "translatePlus", i);
-     return i + 1; //Ecris la prochaine api dans la colonne suivante.
+     getGoogletrans(text, target_language, i + 1); // TODO copier-coller au même endroit dans les fonctions suivantes
     })
     .catch(error => {
      console.error('Error:', error);
+     getGoogletrans(text, target_language, i);
    });
-   return i;*/
+   */
 
    // Commenter le code précédent et utiliser ce code en cas de débugage d'une
    // autre API afin et décommenter les deux lignes suivantes afin
    // d'économiser des requêtes HTTP vers translatePlus
-
    add_translation("Debug mode", "translatePlus", i);
-   return i + 1; // a fonctionné.
+   hideSpinner();
+   getGoogletrans(text, target_language, i + 1);
  }
 
 
  // ----------------------- googletrans  -----------------------
 function getGoogletrans(text, target_language, i) {
+  var lang = translatePlusLang[target_language];
   var data = {
     text: text,
     source: "auto", // Détection automatique de la langue par googletrans
-    target: target_language
+    target: lang
    };
 
   // POST request to the backend
@@ -149,6 +147,7 @@ function getGoogletrans(text, target_language, i) {
       body: JSON.stringify(data)
   })
   .then(response => {
+    hideSpinner();
     if (!response.ok) {
       throw new Error('Network response was not ok. Response code: ' + response);
     }
@@ -158,16 +157,25 @@ function getGoogletrans(text, target_language, i) {
       var output_text = data.translation;
       // Ajout de la traduction dans la balise
       add_translation(output_text, "Google Translate", i);
-      return i + 1; //Ecris la prochaine api dans la colonne suivante.
+      // TODO appeler la fonction suivante avec i + 1 (voir le précédent TODO dans getTranslatePlus)
      })
      .catch(error => {
       console.error('Error:', error);
     });
-    return i;
 
   }
 // ----------------- end googletrans -----------------
 
+var n_finis = 0
+function hideSpinner() {
+  n_finis += 1;
+  if (n_finis == 2) { // TODO augmenter la valeur maximale après avoir ajouté une fonction d'API
+   // Appelé une fois que les traductions ont terminé de charger.
+   $("#spinner").css("display", "none");
+   $("#messageApiOk").css("display","block");
+   n_finis = 0; // réinitialise
+  }
+}
 
 
 });
