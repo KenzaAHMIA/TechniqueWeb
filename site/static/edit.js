@@ -22,10 +22,4 @@ $(document).ready(function() {
         var editText = $("#api-text-4").text();
         $("#edit-textarea").val(editText);
     });
-
-    // star
-    $("#save-edit").click(function() {
-        alert("Saving the changes..."); // supprimer
-	// TODO enregistrer le contenu de edit-textarea dans un cookie
-    });
 });
