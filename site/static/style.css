@@ -23,6 +23,11 @@ fieldset.active
  display: block;
 }
 
+textarea
+{
+ height: 30vh;
+}
+
 .form-group, .form-check
 {
  padding-bottom: 20px;
