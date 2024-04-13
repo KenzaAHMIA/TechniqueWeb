@@ -22,4 +22,7 @@ $(document).ready(function() {
   navigator.clipboard.writeText(text);
  });
 
+ $("#copy-edit").click(function() {
+  text = $("#edit-textarea").val();
+  navigator.clipboard.writeText(text);
 });

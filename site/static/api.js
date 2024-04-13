@@ -41,7 +41,11 @@ $('form').submit(function(event) {
   $("#messageApiOk").css("display","none");
 
   // Cache les balises des anciennes traductions pour les 4 api
-  api_div.removeClass('active');
+  $("#api_div").removeClass('active');
+
+  // Cache l'édition de l'ancienne traduction
+  $("#edit-div").removeClass('active');
+
   for (let index = 1; index < 4; index++) {
    $("#api-col-" + index).css("display", "none");
   }

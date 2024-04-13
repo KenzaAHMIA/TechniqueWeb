@@ -1,31 +1,31 @@
 $(document).ready(function() {
-    // alert("Editting document"); // supprimer
     $("#edit-output-1").click(function() {
-        $("#edit-text-1").toggle();
+	$("#edit-div").addClass('active');
         var editText = $("#api-text-1").text();
-        $("#edit-textarea-1").val(editText);
-        $("#edit-textarea-1").css("display", "block"); //  .insertAfter("#copy-output-2")
-
+        $("#edit-textarea").val(editText);
     });
 
     $("#edit-output-2").click(function() {
-        $("#edit-text-2").toggle();
-       
+	$("#edit-div").addClass('active');
         var editText = $("#api-text-2").text();
-        $("#edit-textarea-2").val(editText);
-        $("#edit-textarea-2").css("display", "block"); //  .insertAfter("#copy-output-2")
-    
+        $("#edit-textarea").val(editText);
     });
 
+    $("#edit-output-3").click(function() {
+	$("#edit-div").addClass('active');
+        var editText = $("#api-text-3").text();
+        $("#edit-textarea").val(editText);
+    });
 
+    $("#edit-output-4").click(function() {
+	$("#edit-div").addClass('active');
+        var editText = $("#api-text-4").text();
+        $("#edit-textarea").val(editText);
+    });
 
-
-
-    // star-2
-    $("#save-edit-2").click(function() {
-
+    // star
+    $("#save-edit").click(function() {
         alert("Saving the changes..."); // supprimer
+	// TODO enregistrer le contenu de edit-textarea dans un cookie
     });
-
-
 });
