@@ -166,7 +166,7 @@ $(document).ready(function () {
 
   // ----------------- DeepL API -----------------
   // Variables de la requête HTTP à envoyer à deepl
-  /* const apiUrl_dl = "https://api-free.deepl.com/v2";
+  const apiUrl_dl = "https://api-free.deepl.com/v2/translate";
   const authKey_dl = "f14fc7aa-2487-49ee-a08f-088a09ad039a:fx";
 
   function getDeepL(text, target_language, i) {
@@ -181,7 +181,7 @@ $(document).ready(function () {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": authKey_dl,
+        Authorization: "DeepL-Auth-Key " + authKey_dl,
       },
       body: JSON.stringify(data),
     })
@@ -189,29 +189,29 @@ $(document).ready(function () {
         hideSpinner();
         if (!response.ok) {
           throw new Error(
-            "Network response was not ok. Response code: " + response
+            "Network response was not ok. Response code: " + response.status
           );
         }
         return response.json();
       })
-      .then((protectedData) => {
-        var output_text = protectedData.translations.translation;
+      .then((data) => {
+        var output_text = data.translations[0].text;
         // Ajout de la traduction dans la balise
         add_translation(output_text, "DeepL", i);
-        getDeepL(text, target_language, i + 1); // TODO copier-coller au même endroit dans les fonctions suivantes
+        // TODO copier-coller au même endroit dans les fonctions suivantes
       })
       .catch((error) => {
         console.error("Error:", error);
+        // Retenter la traduction en cas d'erreur
         getDeepL(text, target_language, i);
       });
-  } */
+  }
   // ----------------- end DeepL API -----------------
 
   var n_finis = 0;
   function hideSpinner() {
     n_finis += 1;
-    // if (n_finis == 3) {
-    if (n_finis == 2) {
+    if (n_finis == 3) {
       // TODO augmenter la valeur maximale après avoir ajouté une fonction d'API
       // Appelé une fois que les traductions ont terminé de charger.
       $("#spinner").css("display", "none");
