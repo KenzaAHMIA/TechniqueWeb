@@ -8,8 +8,6 @@ from fastapi.responses import HTMLResponse
 from googletrans import Translator
 # pour installation : conda install -c conda-forge googletrans
 # ou : pip3 install googletrans==3.1.0a0
-from libretranslatepy import LibreTranslateAPI
-# pip3 install libretranslatepy
 
 import deepl
 
@@ -85,19 +83,3 @@ async def translate_text_deepl(request: Request):
     except Exception as e:
         error_message = "An error occurred during translation: " + str(e)
         return JSONResponse(content={"error": error_message}, status_code=500)
-
-@app.post("/libre_translate")
-async def LibreTrans(request: Request):
-	try:
-		data = await request.json()
-		text_to_translate = data.get("text")
-		target_language = data.get("target")
-		#lt = LibreTranslateAPI("https://translate.terraprint.co/")
-		lt = LibreTranslateAPI("https://libretranslate.com/")
-		translation = lt.translate(text_to_translate, "auto", target_language)
-		data = {"translation": translation}
-		return JSONResponse(content=data)
-	except Exception as e:
-		error_message = "An error occurred during translation: " + str(e)
-		return JSONResponse(content={"error": error_message}, status_code=500)
-

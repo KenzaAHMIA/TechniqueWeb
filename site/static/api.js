@@ -26,6 +26,12 @@ $(document).ready(function () {
     francais: "FR",
     chinois: "ZH"
   };
+  const libreTranslateLang = {
+    arabe: "ar",
+    bengali: "bn",
+    chinois: "zh",
+    francais: "fr",
+  };
 
   // Fonction qui renvoie l'attribut id du bouton radio sélectionné.
   // Peut renvoyer : arabe, bengali, chinois ou francais.
@@ -51,11 +57,10 @@ $(document).ready(function () {
 
      // Cache les balises des anciennes traductions pour les 4 api
      $("#api").removeClass("active");
-
      // Cache l'édition de l'ancienne traduction
      $("#edit-div").removeClass("active");
 
-     for (let index = 1; index < 4; index++) {
+     for (let index = 1; index <= 4; index++) {
        $("#api-col-" + index).css("display", "none");
      }
 
@@ -179,7 +184,7 @@ $(document).ready(function () {
     var lang = deeplLang[target_language];
     if (lang == null) {
      // Bengali pas présent sur deepl
-     // TODO Alice appeler la 4eme api
+     getLibreTranslate(text, target_language, i);
      hideSpinner();
      return;
     }
@@ -209,20 +214,68 @@ $(document).ready(function () {
         var output_text = data.translation;
         // Ajout de la traduction dans la balise
         add_translation(output_text, "DeepL", i);
-        // TODO Alice copier-coller au même endroit dans les fonctions suivantes
+	getLibreTranslate(text, target_language, i+1);
       })
       .catch((error) => {
         console.error("Error:", error);
         // Retenter la traduction en cas d'erreur
-        // TODO Alice même chose
+	getLibreTranslate(text, target_language, i);
       });
   }
   // ----------------- end DeepL API -----------------
 
+
+// ----------------------- libreTranslate	-----------------------
+function getLibreTranslate(text, target_language, i) {
+	var lang = libreTranslateLang[target_language];
+	/*
+	var data = {
+	 text: text,
+	 target: lang
+	};
+	*/
+
+	var data = {
+	 q: text,
+	 source: "auto",
+	 target: lang,
+	 format: "text",
+	 api_key: ""
+	};
+	
+	//POST request to the backend
+	//addr = "/libre_translate"
+	addr = "http://127.0.0.1:5000/translate"
+	fetch(addr, {
+		method: "POST",
+		headers: {
+			"Content-Type":"application/json"
+		},
+		body: JSON.stringify(data)
+	})
+	.then(response => {
+		hideSpinner();
+		if (!response.ok) {
+			throw new Error('Network response was not ok. Response code: ' + response.status);
+		}
+		return response.json();
+		})
+		.then(data => {
+			var output_text = data.translatedText;
+			// Ajout de la traduction dans la balise
+			add_translation(output_text, "LibreTranslate", i);
+			hideSpinner();
+		})
+		.catch (error=> {
+				console.error('Error:', error);
+		});
+	} // fin fonction getLibretranslate()
+// ----------------- end libreTranslate -----------------
+
   var n_finis = 0;
   function hideSpinner() {
     n_finis += 1;
-    if (n_finis == 3) {
+    if (n_finis == 4) {
       // TODO augmenter la valeur maximale après avoir ajouté une fonction d'API
       // Appelé une fois que les traductions ont terminé de charger.
       $("#spinner").css("display", "none");
