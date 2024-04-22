@@ -75,4 +75,5 @@ dependencies:
     - typing-extensions==4.10.0
     - uvicorn==0.29.0
     - werkzeug==3.0.1
+    - libretranslate
 prefix: /home/shamglam/miniconda3/envs/webEnv
