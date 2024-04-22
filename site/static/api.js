@@ -172,10 +172,6 @@ $(document).ready(function () {
   // ----------------- end googletrans -----------------
 
   // ----------------- DeepL API -----------------
-  // Variables de la requête HTTP à envoyer à deepl
-  const apiUrl_dl = "https://api-free.deepl.com/v2/translate";
-  const authKey_dl = "f14fc7aa-2487-49ee-a08f-088a09ad039a:fx";
-
 
   // the DeepL API does not support being used directly from within browser-based apps. The API Key is not supposed to be shared publicly as well and should always be kept secret. The best approach is to use a backend proxy for the API Calls.
 
@@ -184,21 +180,19 @@ $(document).ready(function () {
     if (lang == null) {
      // Bengali pas présent sur deepl
      // TODO Alice appeler la 4eme api
+     hideSpinner();
      return;
     }
     var data = {
       text: text,
       //source: "auto", // Détection automatique de la langue par translatePlus
-      target_lang: lang,
+      target: lang,
     };
 
-    fetch(apiUrl_dl, {
+    fetch("/translate_deepl", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "DeepL-Auth-Key " + authKey_dl,
-	"User-Agent": "TradAPI/1.0.0",
-	"Content-Length": text.length
       },
       body: JSON.stringify(data),
     })
@@ -212,7 +206,7 @@ $(document).ready(function () {
         return response.json();
       })
       .then((data) => {
-        var output_text = data.translations[0].text;
+        var output_text = data.translation;
         // Ajout de la traduction dans la balise
         add_translation(output_text, "DeepL", i);
         // TODO Alice copier-coller au même endroit dans les fonctions suivantes

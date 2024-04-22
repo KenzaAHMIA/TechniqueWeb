@@ -75,10 +75,9 @@ async def translate_text_deepl(request: Request):
     try:
         data = await request.json()
         text_to_translate = data.get("text", "")
-        target_language = data.get("target", "en")  # Anglais par défaut
-
+        target_language = data.get("target", "EN")  # Anglais par défaut
         result = translator_deepl.translate_text(text_to_translate, target_lang=target_language)
-        translation = result["translations"][0]["text"]
+        translation = result.text
         data = {"translation": translation}
         return JSONResponse(content=data)
     except Exception as e:
