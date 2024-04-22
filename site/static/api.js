@@ -20,6 +20,12 @@ $(document).ready(function () {
     chinois: "zh-CN",
     francais: "fr",
   };
+  // Pas de bengali
+  const deeplLang = {
+    arabe: "AR",
+    francais: "FR",
+    chinois: "ZH"
+  };
 
   // Fonction qui renvoie l'attribut id du bouton radio sélectionné.
   // Peut renvoyer : arabe, bengali, chinois ou francais.
@@ -36,33 +42,33 @@ $(document).ready(function () {
     if (text.length == 0) {
       return;
     }
-    if (textarea.val() != old_text) {
-      // Affiche la div de chargement avec Spinner à la place du texte
-      // "Traductions trouvées..."
-      // show spinner
-      $("#spinner").css("display", "block");
-      $("#messageApiOk").css("display", "none");
+    if (text != old_text || lang != old_lang) {
+     // Affiche la div de chargement avec Spinner à la place du texte
+     // "Traductions trouvées..."
+     // show spinner
+     $("#spinner").css("display", "block");
+     $("#messageApiOk").css("display", "none");
 
-      // Cache les balises des anciennes traductions pour les 4 api
-      $("#api").removeClass("active");
+     // Cache les balises des anciennes traductions pour les 4 api
+     $("#api").removeClass("active");
 
-      // Cache l'édition de l'ancienne traduction
-      $("#edit-div").removeClass("active");
+     // Cache l'édition de l'ancienne traduction
+     $("#edit-div").removeClass("active");
 
-      for (let index = 1; index < 4; index++) {
-        $("#api-col-" + index).css("display", "none");
-      }
+     for (let index = 1; index < 4; index++) {
+       $("#api-col-" + index).css("display", "none");
+     }
 
-      // ------------ récupération des traductions ------------
-      // i est le nombre d'API qui ont fonctionné.
-      let i = 1;
-      getTranslatePlus(textarea.val(), lang, i);
+     // ------------ récupération des traductions ------------
+     // i est le nombre d'API qui ont fonctionné.
+     getTranslatePlus(textarea.val(), lang, 1);
 
-      // Affiche la classe des traductions des APIs
-      api_div.addClass("active");
+     // Affiche la classe des traductions des APIs
+     api_div.addClass("active");
 
-      // Pour éviter de rappeler les API quand le texte est identique
-      old_text = textarea.val();
+     // Pour éviter de rappeler les API quand le texte est identique
+     old_text = text;
+     old_lang = lang;
     }
   });
 
@@ -156,10 +162,11 @@ $(document).ready(function () {
         var output_text = data.translation;
         // Ajout de la traduction dans la balise
         add_translation(output_text, "Google Translate", i);
-        // TODO appeler la fonction suivante avec i + 1 (voir le précédent TODO dans getTranslatePlus)
+        getDeepL(text, target_language, i + 1);
       })
       .catch((error) => {
         console.error("Error:", error);
+        getDeepL(text, target_language, i);
       });
   }
   // ----------------- end googletrans -----------------
@@ -169,19 +176,29 @@ $(document).ready(function () {
   const apiUrl_dl = "https://api-free.deepl.com/v2/translate";
   const authKey_dl = "f14fc7aa-2487-49ee-a08f-088a09ad039a:fx";
 
+
+  // the DeepL API does not support being used directly from within browser-based apps. The API Key is not supposed to be shared publicly as well and should always be kept secret. The best approach is to use a backend proxy for the API Calls.
+
   function getDeepL(text, target_language, i) {
-    var lang = translatePlusLang[target_language];
+    var lang = deeplLang[target_language];
+    if (lang == null) {
+     // Bengali pas présent sur deepl
+     // TODO Alice appeler la 4eme api
+     return;
+    }
     var data = {
       text: text,
-      source: "auto", // Détection automatique de la langue par translatePlus
-      target: lang,
+      //source: "auto", // Détection automatique de la langue par translatePlus
+      target_lang: lang,
     };
 
     fetch(apiUrl_dl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "DeepL-Auth-Key " + authKey_dl,
+        "Authorization": "DeepL-Auth-Key " + authKey_dl,
+	"User-Agent": "TradAPI/1.0.0",
+	"Content-Length": text.length
       },
       body: JSON.stringify(data),
     })
@@ -198,12 +215,12 @@ $(document).ready(function () {
         var output_text = data.translations[0].text;
         // Ajout de la traduction dans la balise
         add_translation(output_text, "DeepL", i);
-        // TODO copier-coller au même endroit dans les fonctions suivantes
+        // TODO Alice copier-coller au même endroit dans les fonctions suivantes
       })
       .catch((error) => {
         console.error("Error:", error);
         // Retenter la traduction en cas d'erreur
-        getDeepL(text, target_language, i);
+        // TODO Alice même chose
       });
   }
   // ----------------- end DeepL API -----------------
