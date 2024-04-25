@@ -3,11 +3,39 @@ $(document).ready(function () {
   $("#save-edit").click(function () {
     // Récupérer le texte à enregistrer
     var texte = $("#edit-textarea").val();
+
+    /******** Partie Solr ********************/
+    var source = $("#input-text").val();
+    var lang = $("input[name = targetLanguage]:checked").attr("id");
+    var data = {
+	texte: text,
+	source: source,
+	langue: lang,
+    };
+    alert(texte + " " +  source + " " + lang);
+
+    fetch("/save_traduction", {
+	method: "POST",
+	headers: {
+		"Content-Type": "application/json",
+	},
+	body: JSON.stringify(data),
+    })
+	.then((response) => {
+		alert("saved");
+    		$(this).css("fill", "yellow");
+	});
+   });
+
+    /******** Partie Cookies *****************/
     // Enregistrer le texte dans un cookie
+
+    /*
     document.cookie =
+      //"nomCookie" + Math.getRandomInt(100) + "=cookie;"
       "texte_enregistre=" +
       texte +
-      "; expires=Thu, 31 Dec 9999 12:00:00 UTC; path=/";
+      "; expires=Thu, 31 Dec 9999 12:00:00 UTC; SameSite=Lax; path=/";
 
     // Pour que l'étoile devienne jaune après avoir été cliquée
     $(this).css("fill", "yellow");
@@ -41,5 +69,5 @@ $(document).ready(function () {
   }
 
   // Appeler la fonction de mise à jour de l'historique des traductions au chargement de la page
-  updateTranslationHistory();
+  updateTranslationHistory();*/
 });

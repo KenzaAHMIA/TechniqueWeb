@@ -16,8 +16,16 @@ import json
 import os
 from fastapi.responses import JSONResponse
 
+from pysolr import Solr
+
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+
+# URL de l'API Solr
+solr_url = 'http://localhost:8983/solr/tradAPI'
+
+# Initialisez l'objet Solr
+solr = Solr(solr_url, always_commit=True)
 
 # ressources statiques du site (css, images...)
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -83,3 +91,28 @@ async def translate_text_deepl(request: Request):
     except Exception as e:
         error_message = "An error occurred during translation: " + str(e)
         return JSONResponse(content={"error": error_message}, status_code=500)
+
+@app.post("/save_traduction")
+async def ajouter_element(request: Request):
+	try:
+		data = await request.json()
+		trad_source = data.get("source", "")
+		trad_cible = data.get("texte", "")
+		langue = data.get("langue", "EN")
+
+		# Créez un document à ajouter à Solr
+		document = {
+			"langue": langue,
+			"trad_source": trad_source,
+			"trad_cible": trad_cible
+		}
+
+		# Ajoutez le document à Solr
+		solr.add([document])
+
+		# Renvoyez une réponse confirmant que l'élément a été ajouté avec succès
+		return JSONResponse(content={"message": "L'élément a été ajouté avec succès à Solr."})
+	except Exception as e:
+		error_message = "An error occurred during Solr access: " + str(e)
+		return JSONResponse(content={"error": error_message}, status_code=500)
+
