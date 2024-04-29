@@ -2,17 +2,16 @@ $(document).ready(function () {
   // Gestionnaire d'événement pour le clic sur l'icône d'enregistrement
   $("#save-edit").click(function () {
     // Récupérer le texte à enregistrer
-    var texte = $("#edit-textarea").val();
+    var cible = $("#edit-textarea").val();
 
     /******** Partie Solr ********************/
     var source = $("#input-text").val();
     var lang = $("input[name = targetLanguage]:checked").attr("id");
     var data = {
-	texte: text,
-	source: source,
-	langue: lang,
+	"texte": cible,
+	"source": source,
+	"langue": lang
     };
-    alert(texte + " " +  source + " " + lang);
 
     fetch("/save_traduction", {
 	method: "POST",
