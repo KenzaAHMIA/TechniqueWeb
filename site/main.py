@@ -116,3 +116,28 @@ async def ajouter_element(request: Request):
 		error_message = "An error occurred during Solr access: " + str(e)
 		return JSONResponse(content={"error": error_message}, status_code=500)
 
+@app.get("/load_translations")
+async def load_translations(request: Request):
+    try:
+        # Effectuez une requête à Solr pour récupérer les traductions
+        # Assurez-vous d'adapter cette partie selon votre modèle de données et votre configuration Solr
+        translations = solr.search('*:*', rows=1000000)  # Exemple de requête pour récupérer toutes les traductions
+
+        # Formattez les données de traduction comme vous le souhaitez
+        formatted_translations = []
+
+        for translation in translations:
+            formatted_translation = {
+                'target_lang': translation['target_lang'],
+                'source_text': translation['source_text'],
+                'target_text': translation['target_text']
+            }
+            formatted_translations.append(formatted_translation)
+        print(formatted_translations)
+   
+        # Renvoyez les données de traduction formatées
+        return JSONResponse(content=formatted_translations)
+    except Exception as e:
+        error_message = "An error occurred while loading translations: " + str(e)
+        return JSONResponse(content={"error": error_message}, status_code=500)
+
