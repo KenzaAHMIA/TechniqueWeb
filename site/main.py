@@ -122,18 +122,18 @@ async def load_translations(request: Request):
         # Effectuez une requête à Solr pour récupérer les traductions
         # Assurez-vous d'adapter cette partie selon votre modèle de données et votre configuration Solr
         translations = solr.search('*:*', rows=1000000)  # Exemple de requête pour récupérer toutes les traductions
+        translations = translations.raw_response['response']['docs']
 
-        # Formattez les données de traduction comme vous le souhaitez
         formatted_translations = []
 
         for translation in translations:
-            formatted_translation = {
-                'target_lang': translation['target_lang'],
-                'source_text': translation['source_text'],
-                'target_text': translation['target_text']
-            }
-            formatted_translations.append(formatted_translation)
-        print(formatted_translations)
+            if 'trad_cible' in translation and 'trad_source' in translation and 'langue' in translation:
+                formatted_translation = {
+                    'target_lang': translation['langue'],
+                    'source_text': translation['trad_source'],
+                    'target_text': translation['trad_cible']
+                }
+                formatted_translations.append(formatted_translation)
    
         # Renvoyez les données de traduction formatées
         return JSONResponse(content=formatted_translations)
