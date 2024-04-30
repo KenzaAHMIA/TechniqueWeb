@@ -120,6 +120,32 @@ async def ajouter_element(request: Request):
 		error_message = "An error occurred during Solr access: " + str(e)
 		return JSONResponse(content={"error": error_message}, status_code=500)
 
+
+@app.get("/load_translations")
+async def load_translations(request: Request):
+    try:
+        # Effectuez une requête à Solr pour récupérer les traductions
+        # Assurez-vous d'adapter cette partie selon votre modèle de données et votre configuration Solr
+        translations = solr.search('*:*', rows=1000000)  # Exemple de requête pour récupérer toutes les traductions
+        translations = translations.raw_response['response']['docs']
+
+        formatted_translations = []
+
+        for translation in translations:
+            if 'trad_cible' in translation and 'trad_source' in translation and 'langue' in translation:
+                formatted_translation = {
+                    'target_lang': translation['langue'],
+                    'source_text': translation['trad_source'],
+                    'target_text': translation['trad_cible']
+                }
+                formatted_translations.append(formatted_translation)
+   
+        # Renvoyez les données de traduction formatées
+        return JSONResponse(content=formatted_translations)
+    except Exception as e:
+        error_message = "An error occurred while loading translations: " + str(e)
+        return JSONResponse(content={"error": error_message}, status_code=500)
+
 ### ajout de la partie pour enlever les traductions sauvegardées	####
 @app.get("/remove_saved_translation") # delete
 async def remove_saved_trad(request: Request):
@@ -137,7 +163,6 @@ async def remove_saved_trad(request: Request):
 		return JSONResponse(content={"error": error_message}, status_code=500)
 
 ##### fin fonction remove_saved_trad ####
-
 @app.post("/scores_meteor")
 async def calcul_meteor(request:Request):
 	try:
