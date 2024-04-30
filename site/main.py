@@ -147,17 +147,26 @@ async def load_translations(request: Request):
         return JSONResponse(content={"error": error_message}, status_code=500)
 
 ### ajout de la partie pour enlever les traductions sauvegardées	####
-@app.get("/remove_saved_translation") # delete
-async def remove_saved_trad(request: Request):
+@app.delete("/remove_saved_translation")  # supprimer
+async def delete_translation(request: Request):
 	try:
-		# chercher dans la bd solr
-		results = solr.search("*:*")
-		traductions = results.docs
-		#### Ici je sais pas comment tester la bdd, il faut 
-		# 1. vérifier si la traduction existe
-		# 2. si oui, la supprimer de la bdd
-		# TODO: à compléter
-  
+		data = await request.json()
+		trad_source = data.get("source", "")
+		trad_cible = data.get("texte", "")
+		langue = data.get("langue", "EN")
+		
+		# Find and delete the translation from Solr
+		query = f"trad_source:\"{trad_source}\" AND trad_cible:\"{trad_cible}\" AND langue:\"{langue}\""
+		results = solr.search(query)
+        
+		if len(results) > 0:
+            # If the translation exists, delete it
+			solr.delete_by_query(query)
+			solr.commit()
+			return JSONResponse(content="message:Translation of {trad_source} deleted successfully.")
+		else:
+            # If the translation does not exist, return a message
+			return {"message": f"No translation found for {trad_source} with target text {trad_cible} in language {langue}."}
 	except Exception as e:
 		error_message = "An error occurred during Solr access: " + str(e)
 		return JSONResponse(content={"error": error_message}, status_code=500)

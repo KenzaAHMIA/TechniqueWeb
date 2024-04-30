@@ -31,16 +31,30 @@ $(document).ready(function () {
 
   // quand on clique sur undo-save -> étoile jaune 
    $("#undo-save").click(function () {
-    alert("Removing saved translation...");
+    var cible = $("#edit-textarea").val();
+    var source = $("#input-text").val();
+    var lang = $("input[name = targetLanguage]:checked").attr("id");
+
+    var data = {
+    "texte": cible,
+    "source": source,
+    "langue": lang
+    };
+
+    fetch("/remove_saved_translation", {
+	  method: "DELETE",
+	  headers: {
+		"Content-Type": "application/json",
+	},
+  body: JSON.stringify(data),
+})
+.then((response) => {
+    alert("Removing translation...");
     $("#undo-save").toggle();
     $("#save-edit").show();
 
-    // *********** Partie Solr a compléter dans main.py *************
-    // j'ai crée dans main.py :
-    // @app.get("/remove_saved_translation")
-      // il faut qu'il aille chercher la trad +  supprime 
-      // sinon afficher message d'erreur qu'il ne trouve pas la traduction?
-
+    
+});
 
    });
   
