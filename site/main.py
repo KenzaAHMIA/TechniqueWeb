@@ -120,6 +120,24 @@ async def ajouter_element(request: Request):
 		error_message = "An error occurred during Solr access: " + str(e)
 		return JSONResponse(content={"error": error_message}, status_code=500)
 
+### ajout de la partie pour enlever les traductions sauvegardées	####
+@app.get("/remove_saved_translation") # delete
+async def remove_saved_trad(request: Request):
+	try:
+		# chercher dans la bd solr
+		results = solr.search("*:*")
+		traductions = results.docs
+		#### Ici je sais pas comment tester la bdd, il faut 
+		# 1. vérifier si la traduction existe
+		# 2. si oui, la supprimer de la bdd
+		# TODO: à compléter
+  
+	except Exception as e:
+		error_message = "An error occurred during Solr access: " + str(e)
+		return JSONResponse(content={"error": error_message}, status_code=500)
+
+##### fin fonction remove_saved_trad ####
+
 @app.post("/scores_meteor")
 async def calcul_meteor(request:Request):
 	try:

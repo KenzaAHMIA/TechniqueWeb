@@ -21,11 +21,31 @@ $(document).ready(function () {
 	body: JSON.stringify(data),
     })
 	.then((response) => {
-		alert("saved");
-    		$(this).css("fill", "yellow");
+		alert("Saving translation...");
+        // toggle between two stars save-edit and undo-save
+        $("#undo-save").toggle();
+        //hide #save-edit
+        $("#save-edit").hide();
 	});
    });
 
+  // quand on clique sur undo-save -> étoile jaune 
+   $("#undo-save").click(function () {
+    alert("Removing saved translation...");
+    $("#undo-save").toggle();
+    $("#save-edit").show();
+
+    // *********** Partie Solr a compléter dans main.py *************
+    // j'ai crée dans main.py :
+    // @app.get("/remove_saved_translation")
+      // il faut qu'il aille chercher la trad +  supprime 
+      // sinon afficher message d'erreur qu'il ne trouve pas la traduction?
+
+
+   });
+  
+
+  
     /******** Partie Cookies *****************/
     // Enregistrer le texte dans un cookie
 
