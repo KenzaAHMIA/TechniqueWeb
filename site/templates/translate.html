@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
- <head>
+
+<head>
   <title>TradAPI</title>
   <meta charset='utf-8'>
   <link rel='icon' type='image/x-icon' href='static/favicon.ico'>
@@ -12,201 +13,242 @@
   <script type='text/javascript' src='static/edit.js'></script>
   <script type='text/javascript' src='static/save.js'></script>
   <script type='text/javascript' src='static/meteor.js'></script>
+  <script type='text/javascript' src='static/scroll.js'></script>
 
- </head>
- <body>
+</head>
 
-<header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand" href="#">
-      <img src="/static/Logo_tradAPI.jpg" alt="Logo" width="80" height="80" class="d-inline-block align-top">
-    </a>
-    <!-- Bouton pour toggle la navbar sur les petits écrans -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<body>
 
-    <!-- Contenu de la navbar -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="home">HOME</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="translate">Traducteur</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="presentation">Qui sommes-nous</a>
-      </li>
-     </ul>
-     <!-- alignés à droite -->
-     <ul class="navbar-nav ml-auto" style="margin-left: auto;">
-      <li class="nav-item">
-        <a class="nav-link mr-2" href="history">Mes traductions</a>
-      </li>
-     </ul>
-    </div>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #a5e3f5;">
+      <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+          <img src="/static/Logo_tradAPI.jpg" alt="Logo" width="80" height="80" class="d-inline-block align-top">
+        </a>
+        <!-- Bouton pour toggle la navbar sur les petits écrans -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenu de la navbar -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="home">HOME</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="translate">Traducteur</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="presentation">Qui sommes-nous</a>
+            </li>
+          </ul>
+          <!-- alignés à droite -->
+          <ul class="navbar-nav ml-auto" style="margin-left: auto;">
+            <li class="nav-item">
+              <a class="nav-link mr-2" href="history">Mes traductions</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenu de la page -->
+  <main class="container">
+    <form>
+      <fieldset class='active'>
+        <!--<legend class='w-auto px-2'>Traducteur</legend>-->
+        <div class='form-group'>
+          <div class='superposable'>
+            <textarea class='form-control' id='input-text' placeholder="Entrez le texte à traduire" required
+              minlength="1" maxlength="500"></textarea>
+            <!-- bouton copier -->
+            <svg xmlns="http://www.w3.org/2000/svg" id="copy-source-text" class="objet-superpose" width="16" height="16"
+              fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+            </svg>
+          </div>
+        </div>
+        <div class='form-group'>
+          <h6 class='form-label text-muted' for='target-language'>Traduire en</h6>
+          <div class='row container'>
+            <div class='col-3 form-check form-check-inline'>
+              <input class='form-check-input' type='radio' name='targetLanguage' id='arabe' required>
+              <label class='form-check-label' for='arabe'>Arabe</label>
+            </div>
+            <div class='col-3 form-check form-check-inline'>
+              <input class='form-check-input' type='radio' name='targetLanguage' id='bengali' required>
+              <label class='form-check-label' for='bengali'>Bengali</label>
+            </div>
+            <div class='col-3 form-check form-check-inline'>
+              <input class='form-check-input' type='radio' name='targetLanguage' id='chinois' required>
+              <label class='form-check-label' for='chinois'>Chinois</label>
+            </div>
+            <div class='col-1 form-check form-check-inline'>
+              <input class='form-check-input' type='radio' name='targetLanguage' id='francais' required>
+              <label class='form-check-label' for='francais'>Français</label>
+            </div>
+          </div>
+          <div class='form-group text-center'>
+            <input class='btn btn-outline-info centered text-dark' type="submit" value="Traduire" id="traduire">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset id='api'>
+        <div id="spinner" class="text-center">
+          <p class="text-center">Veuillez patienter...</p>
+          <div class="d-flex justify-content-center">
+            <div role="status" class="spinner-border text-info"></div>
+          </div>
+        </div>
+        <label class='text-center' id='messageApiOk' style='padding: 50px;'>Traductions trouvées. Si vous souhaitez
+          éditer les traductions, veuillez sélectionner celle qui vous satisfait comme référence.</label>
+
+        <div id="api-res">
+          <div class='row'>
+            <div class="col-md-6" id="api-col-1" style="display:none;">
+              <!-- Contenu de la première colonne -->
+              <h6>Traduction de <span id="api-name-1"></span></h6>
+              <div class="superposable">
+                <p class="bg-light p-3" id="api-text-1"></p>
+                <div class='objet-superpose'>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="edit-output-1" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-1" width="16" height="16" fill="currentColor"
+                    class="bi bi-copy" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                  </svg>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="col-md-6" id="api-col-2" style="display:none;">
+              <!-- Contenu de la deuxième colonne -->
+              <h6>Traduction de <span id="api-name-2"></span></h6>
+              <div class="superposable">
+                <p class="bg-light p-3" id="api-text-2"></p>
+                <div class='objet-superpose'>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="edit-output-2" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-2" width="16" height="16" fill="currentColor"
+                    class="bi bi-copy" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                  </svg>
+                </div>
+              </div>
+
+            </div> <!-- end row -->
+          </div>
+
+          <div class='row'>
+            <div class="col-md-6" id="api-col-3" style="display:none;">
+              <!-- Contenu de la 3e colonne -->
+              <h6>Traduction de <span id="api-name-3"></span></h6>
+              <div class="superposable">
+                <p class="bg-light p-3" id="api-text-3"></p>
+                <div class='objet-superpose'>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="edit-output-3" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-3" width="16" height="16" fill="currentColor"
+                    class="bi bi-copy" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                  </svg>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6" id="api-col-4" style="display:none;">
+              <!-- Contenu de la 4e colonne -->
+              <h6>Traduction de <span id="api-name-4"></span></h6>
+              <div class="superposable">
+                <p class="bg-light p-3" id="api-text-4"></p>
+                <div class='objet-superpose'>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="edit-output-4" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                      d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-4" width="16" height="16" fill="currentColor"
+                    class="bi bi-copy" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset id="edit-div">
+        <label class='text-center' style='padding: 50px;'>Vous pouvez écrire librement dans ce cadre. Enregistrez vos
+          traductions (dans des cookies) ou copiez-les.</label>
+        <div class='form-group'>
+          <div class='superposable'>
+            <textarea class='form-control' id='edit-textarea' maxlength="500"></textarea>
+            <div class='objet-superpose'>
+
+              <svg xmlns="http://www.w3.org/2000/svg" id="save-edit" width="16" height="16" fill="currentColor"
+                class="bi bi-star" viewBox="0 0 16 16">
+                <path
+                  d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" id="undo-save" width="16" height="16" style="display: none;"
+                fill="none" stroke="black" stroke-width="1" class="bi bi-star-fill" viewBox="0 0 16 16">
+                <path
+                  d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"
+                  fill="yellow" />
+              </svg>
+
+              <svg xmlns="http://www.w3.org/2000/svg" id="copy-edit" width="16" height="16" fill="currentColor"
+                class="bi bi-copy" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <a href="#" id="back-to-top" class="btn btn-info btn-lg back-to-top" role="button"
+        title="Retour en haut de la page" style="display: none;"><span
+          class="glyphicon glyphicon-chevron-up"></span></a>
+    </form>
+  </main>
+
+  <!-- Scripts Bootstrap -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <div>
+    <a href="#" id="back-to-top" class="btn btn-info btn-lg back-to-top rounded-circle" role="button"
+      title="Retour en haut de la page" style="display: none;"><span class="bi bi-arrow-up"></span></a>
   </div>
-</nav>
-</header>
 
-<!-- Contenu de la page -->
-<main class="container">
- <form>
-  <fieldset class='active'>
-  <!--<legend class='w-auto px-2'>Traducteur</legend>-->
-   <div class='form-group'>
-    <div class='superposable'>
-     <textarea class='form-control' id='input-text' placeholder="Entrez le texte à traduire" required minlength="1" maxlength="500"></textarea>
-     <!-- bouton copier -->
-     <svg xmlns="http://www.w3.org/2000/svg" id="copy-source-text" class="objet-superpose" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-       <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-     </svg>
-    </div>
-   </div>
-   <div class='form-group'>
-    <h6 class='form-label' for='target-language'>Traduire en</h6>
-    <div class='row container'>
-    <div class='col-3 form-check form-check-inline'>
-     <input class='form-check-input' type='radio' name='targetLanguage' id='arabe' required>
-     <label class='form-check-label' for='arabe'>Arabe</label>
-    </div>
-    <div class='col-3 form-check form-check-inline'>
-     <input class='form-check-input' type='radio' name='targetLanguage' id='bengali' required>
-     <label class='form-check-label' for='bengali'>Bengali</label>
-    </div>
-    <div class='col-3 form-check form-check-inline'>
-     <input class='form-check-input' type='radio' name='targetLanguage' id='chinois' required>
-     <label class='form-check-label' for='chinois'>Chinois</label>
-    </div>
-    <div class='col-1 form-check form-check-inline'>
-     <input class='form-check-input' type='radio' name='targetLanguage' id='francais' required>
-     <label class='form-check-label' for='francais'>Français</label>
-    </div>
-    </div>
-   <div class='form-group text-center'>
-    <input class='btn btn-dark centered' type="submit" value="Traduire" id="traduire">
-   </div>
-  </div>
-  </fieldset>
-
-  <fieldset id='api'>
-   <div id="spinner" class="text-center">
-    <p class="text-center">Veuillez patienter...</p>
-    <div class="d-flex justify-content-center">
-     <div role="status" class="spinner-border text-info"></div>
-    </div>
-   </div>
-   <label class='text-center' id='messageApiOk' style='padding: 50px;'>Traductions trouvées. Si vous souhaitez éditer les traductions, veuillez sélectionner celle qui vous satisfait comme référence.</label>
-   
-   <div id="api-res">
-    <div class='row'>
-     <div class="col-md-6" id="api-col-1" style="display:none;">
-      <!-- Contenu de la première colonne -->
-      <h6>Traduction de <span id="api-name-1"></span></h6>
-      <div class="superposable">
-       <p class="bg-light p-3" id="api-text-1"></p>
-       <div class='objet-superpose'>
-        <svg  xmlns="http://www.w3.org/2000/svg" id="edit-output-1" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-1" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-         <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-        </svg>
-       </div>
-      </div>
-
-      
-    </div>
-
-     <div class="col-md-6" id="api-col-2" style="display:none;">
-     <!-- Contenu de la deuxième colonne -->
-      <h6>Traduction de <span id="api-name-2"></span></h6>
-      <div class="superposable">
-       <p class="bg-light p-3" id="api-text-2"></p>
-       <div class='objet-superpose'>
-        <svg  xmlns="http://www.w3.org/2000/svg" id="edit-output-2" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-2" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-         <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-        </svg>
-      </div>
-    </div>
-    
-  </div> <!-- end row -->
-  </div> 
-     
-    <div class='row'>
-     <div class="col-md-6" id="api-col-3" style="display:none;">
-      <!-- Contenu de la 3e colonne -->
-      <h6>Traduction de <span id="api-name-3"></span></h6>
-      <div class="superposable">
-       <p class="bg-light p-3" id="api-text-3"></p>
-       <div class='objet-superpose'>
-        <svg  xmlns="http://www.w3.org/2000/svg" id="edit-output-3" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-3" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-         <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-        </svg>
-        
-       </div>
-      </div>
-     </div>
-     <div class="col-md-6" id="api-col-4" style="display:none;">
-     <!-- Contenu de la 4e colonne -->
-      <h6>Traduction de <span id="api-name-4"></span></h6>
-      <div class="superposable">
-       <p class="bg-light p-3" id="api-text-4"></p>
-       <div class='objet-superpose'>
-        <svg  xmlns="http://www.w3.org/2000/svg" id="edit-output-4" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="copy-output-4" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-         <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-        </svg>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
-  </fieldset>
-  <fieldset id="edit-div">
-   <label class='text-center' style='padding: 50px;'>Vous pouvez écrire librement dans ce cadre. Enregistrez vos traductions (dans des cookies) ou copiez-les.</label>
-   <div class='form-group'>
-    <div class='superposable'>
-     <textarea class='form-control' id='edit-textarea' maxlength="500"></textarea>
-       <div class='objet-superpose'>
-
-        <svg xmlns="http://www.w3.org/2000/svg" id="save-edit" width="16" height="16" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
-         <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" id="undo-save" width="16" height="16" style="display: none;" fill="none" stroke="black" stroke-width="1" class="bi bi-star-fill" viewBox="0 0 16 16">
-        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z" fill="yellow"/>
-        </svg>
-
-        <svg xmlns="http://www.w3.org/2000/svg" id="copy-edit" width="16" height="16" fill="currentColor" class="bi bi-copy" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
-        </svg>
-       </div>
-    </div>
-   </div>
-  </fieldset>
- </form>
-</main>
-
-<!-- Scripts Bootstrap -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
- </body>
 </html>

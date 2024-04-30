@@ -10,12 +10,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Script pour charger les traductions enregistrées -->
     <script src="../static/load.js"></script>
+    <script type='text/javascript' src='static/scroll.js'></script>
 </head>
 
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #a5e3f5;">
             <div class="container">
                 <!-- Logo -->
                 <a class="navbar-brand" href="#">
@@ -67,9 +68,10 @@
                 <!-- Ici seront affichées les traductions enregistrées -->
             </fieldset>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <button type="button" class="btn btn-outline-secondary btn-sm" id="addTranslationButton"><a
-                        class="nav-link" href="translate">Ajouter une
+                <button type="button" class='btn btn-outline-info centered' id="addTranslationButton"><a
+                        class="nav-link text-dark" href="translate">Ajouter une
                         traduction</a></button>
+                <br>
             </div>
         </form>
 
@@ -79,6 +81,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <div class="text-end mt-3">
+        <a href="#" id="back-to-top" class="btn btn-info back-to-top p-2" role="button"
+            title="Retour en haut de la page" style="display: none;"><span class="bi bi-arrow-up"></span></a>
+    </div>
 
 </body>
 
