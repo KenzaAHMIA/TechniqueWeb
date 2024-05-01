@@ -17,7 +17,6 @@ $(document).ready(function() {
     });
     
     $("#edit-textarea").on('change', function() { //en listener sur l'évènement change
-      alert("ca marche");
       meteor();
     });
 
@@ -50,7 +49,15 @@ $(document).ready(function() {
         return response.json();
       })
       .then((data) => {
-    	alert(data.score_meteor);
+    	var score_meteor_5 = data.score_meteor;
+	var scores_meteor = data.single_scores_meteor;
+	$("#meteor-5").css("visibility","visible");
+	$("#score-meteor-5").text(score_meteor_5);
+	for (var i = 1; i <= scores_meteor.length; i++) {
+	 $("#meteor-" + i).css("visibility","visible");
+         $("#score-meteor-" + i).text(scores_meteor[i-1]);
+	}
+	
       })
       .catch((error) => {
         console.error("Error:", error);
