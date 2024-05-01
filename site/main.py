@@ -18,8 +18,11 @@ from fastapi.responses import JSONResponse
 
 from pysolr import Solr
 
-from datasets import load_metric
-meteor = load_metric('meteor')
+#from datasets import load_metric
+#meteor = load_metric('meteor')
+
+
+import nltk # meteor
 import jieba
 
 app = FastAPI()
@@ -177,19 +180,33 @@ async def delete_translation(request: Request):
 ##### fin fonction remove_saved_trad ####
 @app.post("/scores_meteor")
 async def calcul_meteor(request:Request):
+	"""
+	On a 4 traductions de référence. N'appeler la fonction qu'une fois.
+	"""
 	try:
 		data = await request.json() # 
 		trad_ref = data.get("trad1", "") 
 		trad_cible = data.get("trad2", "")
 		langue = data.get("lang", "EN")
 		if langue == "chinois":
-			trad_ref = tokenize_chinese(trad_ref)
+			trad_ref = [tokenize_chinese(t) for t in trad_ref]
 			trad_cible = tokenize_chinese(trad_cible)
-		res = meteor.compute(predictions=trad_cible, references=trad_ref)
-		return JSONResponse(content={"score_meteor": str(res)})
+		else:
+			trad_ref = [tokenize_autre(t) for t in trad_ref]
+			trad_cible = tokenize_autre(trad_cible)
+		#res = meteor.compute(predictions=trad_cible, references=trad_ref)
+		res = nltk.translate.meteor_score.meteor_score(trad_ref, trad_cible, gamma=0)
+		res = round(res, 3)
+		# gamma=0: renvoie 1 pour les phrases identiques
+		res_single = []
+		for ref in trad_ref:
+			res_single.append(round(nltk.translate.meteor_score.single_meteor_score(ref, trad_cible, gamma=0), 3))
+		return JSONResponse(content={"score_meteor": str(res), "single_scores_meteor":res_single})
 	except Exception as e:
 		error_message = "An error occurred during scores meteor: " + str(e)
 		return JSONResponse(content={"error": error_message}, status_code=500)
 		
 def tokenize_chinese(texte):
-	return " ".join(jieba.cut(texte))
+	return list(jieba.cut(texte))
+def tokenize_autre(texte):
+	return list(texte.split())

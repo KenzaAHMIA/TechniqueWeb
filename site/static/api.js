@@ -55,13 +55,18 @@ $(document).ready(function () {
      $("#spinner").css("display", "block");
      $("#messageApiOk").css("display", "none");
 
-     // Cache les balises des anciennes traductions pour les 4 api
-     $("#api").removeClass("active");
      // Cache l'édition de l'ancienne traduction
      $("#edit-div").removeClass("active");
+     // Remet l'étoile en blanc
+     $("#save-edit").css("display", "inline");
+     $("#undo-save").css("display", "none");
 
+     // Cache les balises des anciennes traductions pour les 4 api
+     $("#api").removeClass("active");
+     // Cache et supprime le texte des anciennes traductions
      for (let index = 1; index <= 4; index++) {
        $("#api-col-" + index).css("display", "none");
+       $("#api-text-" + index).text("");
      }
 
      // ------------ récupération des traductions ------------
@@ -70,6 +75,7 @@ $(document).ready(function () {
 
      // Affiche la classe des traductions des APIs
      api_div.addClass("active");
+
 
      // Pour éviter de rappeler les API quand le texte est identique
      old_text = text;
