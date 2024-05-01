@@ -160,8 +160,11 @@ async def delete_translation(request: Request):
 		results = solr.search(query)
         
 		if len(results) > 0:
-            # If the translation exists, delete it
-			solr.delete_by_query(query)
+			traductions = results.raw_response['response']['docs']
+			for t in traductions:
+				id_trad = t['id']
+				print(t)
+				solr.delete(id_trad)#delete_by_query(query)
 			solr.commit()
 			return JSONResponse(content="message:Translation of {trad_source} deleted successfully.")
 		else:
@@ -189,4 +192,4 @@ async def calcul_meteor(request:Request):
 		return JSONResponse(content={"error": error_message}, status_code=500)
 		
 def tokenize_chinese(texte):
-	return " ".join(jieba.cut(texte))
+/bin/bash: ligne 1: q : commande introuvable
