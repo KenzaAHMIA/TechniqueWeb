@@ -76,4 +76,6 @@ dependencies:
     - uvicorn==0.29.0
     - werkzeug==3.0.1
     - libretranslate
+    - jieba==0.42.1
+    - nltk==3.7
 prefix: /home/shamglam/miniconda3/envs/webEnv
