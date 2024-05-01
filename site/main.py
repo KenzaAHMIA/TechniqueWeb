@@ -192,4 +192,4 @@ async def calcul_meteor(request:Request):
 		return JSONResponse(content={"error": error_message}, status_code=500)
 		
 def tokenize_chinese(texte):
-/bin/bash: ligne 1: q : commande introuvable
+	return " ".join(jieba.cut(texte))
