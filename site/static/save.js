@@ -21,7 +21,6 @@ $(document).ready(function () {
 	body: JSON.stringify(data),
     })
 	.then((response) => {
-		alert("Saving translation...");
         // toggle between two stars save-edit and undo-save
         $("#undo-save").toggle();
         //hide #save-edit
@@ -45,16 +44,12 @@ $(document).ready(function () {
 	  method: "DELETE",
 	  headers: {
 		"Content-Type": "application/json",
-	},
-  body: JSON.stringify(data),
-})
-.then((response) => {
-    alert("Removing translation...");
-    $("#undo-save").toggle();
-    $("#save-edit").show();
-
-    
-});
-
+          },
+          body: JSON.stringify(data),
+   })
+   .then((response) => {
+          $("#undo-save").toggle();
+          $("#save-edit").show();
    });
+ });
 });
