@@ -36,7 +36,6 @@ Dans le cadre du module technique web, notre groupe met en place un site web qui
 
 ### Résultat/ conclusion API
 
-## Auteurs
 
 ## Auteurs
 

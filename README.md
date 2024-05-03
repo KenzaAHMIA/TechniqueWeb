@@ -7,4 +7,6 @@ TRADUCTION MILTILINGUE VIA des API.
 - Alice WALLARD
 - Kenza AHMIA
 - Liza FRETEL
-- Shami THIRION SEN Tout public Individuel
+- Shami THIRION SEN 
+  
+Tout public Individuel
