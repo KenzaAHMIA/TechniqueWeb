@@ -5,7 +5,7 @@ Dans le cadre du module technique web, notre groupe met en place un site web qui
 
 ## API 1
 
-### Overview
+### Descriptif
 
 ### Implémentation
 
@@ -14,15 +14,15 @@ Dans le cadre du module technique web, notre groupe met en place un site web qui
 
 ## API 2 - googletrans
 
-### Overview
+### Descriptif
 
 ### Implémentation
 
 ### Résultat/ conclusion API
 
-## API 3
+## API 3 
 
-### Overview
+### Descriptif
 
 ### Implémentation
 
@@ -30,7 +30,7 @@ Dans le cadre du module technique web, notre groupe met en place un site web qui
 
 ## API 4
 
-### Overview
+### Descriptif
 
 ### Implémentation
 
