@@ -41,6 +41,6 @@ starlette==0.36.3
 typing-extensions==4.10.0
 uvicorn==0.29.0
 werkzeug==3.0.1
-libretranslate==1.5.6
+libretranslate==1.5.7
 jieba==0.42.1
 nltk==3.7
