@@ -64,7 +64,7 @@ bash start.sh*
 
 ## Fonctionnalités de l'application
 
-- Traduire des textes dans 4 langues différentes (français, arabe, bengali, chinois) et à partir de 2 langues sources (anglais et français).
+- Traduire des textes dans 4 langues différentes (français, arabe, bengali, chinois) et à partir de n'importe quel autre langue.
 - Copier le texte source et/ou la traduction.
 - Éditer les traductions.
 - Enregistrer les traductions en cliquant sur l'icône de l'étoile.
