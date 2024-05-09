@@ -11,19 +11,14 @@ from googletrans import Translator
 
 import deepl
 
-
 import json
 import os
 from fastapi.responses import JSONResponse
 
 from pysolr import Solr
 
-#from datasets import load_metric
-#meteor = load_metric('meteor')
-
-
-import nltk # meteor
-import jieba
+import nltk # score meteor
+import jieba # tokenisation
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -37,10 +32,6 @@ solr = Solr(solr_url, always_commit=True)
 # ressources statiques du site (css, images...)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/hello-world")
-def helloworld():
-	return {"Hello": "World"}
-
 @app.get("/")
 async def root(request: Request): # il faut avoir une fonction root pour le lien de redirection du menu (dans index.html)
 	return templates.TemplateResponse("home.html", {"request": request})
@@ -52,17 +43,8 @@ async def root(request: Request):
 
 # GET
 @app.get("/translate", response_class=HTMLResponse)
-async def recettes(request: Request):
+async def api_trad(request: Request):
 	return templates.TemplateResponse("translate.html", {"request":request})
-
-@app.get("/presentation", response_class=HTMLResponse)
-async def recettes(request: Request):
-	return templates.TemplateResponse("presentation.html", {"request":request})
-
-@app.get("/history", response_class=HTMLResponse)
-async def recettes(request: Request):
-	return templates.TemplateResponse("history.html", {"request":request})
-
 
 # googletrans # 
 @app.post("/translate")
@@ -184,7 +166,7 @@ async def calcul_meteor(request:Request):
 	On a 4 traductions de référence. N'appeler la fonction qu'une fois.
 	"""
 	try:
-		data = await request.json() # 
+		data = await request.json() 
 		trad_ref = data.get("trad1", "") 
 		trad_cible = data.get("trad2", "")
 		langue = data.get("lang", "EN")
@@ -194,10 +176,8 @@ async def calcul_meteor(request:Request):
 		else:
 			trad_ref = [tokenize_autre(t) for t in trad_ref]
 			trad_cible = tokenize_autre(trad_cible)
-		#res = meteor.compute(predictions=trad_cible, references=trad_ref)
 		res = nltk.translate.meteor_score.meteor_score(trad_ref, trad_cible, gamma=0)
 		res = round(res, 3)
-		# gamma=0: renvoie 1 pour les phrases identiques
 		res_single = []
 		for ref in trad_ref:
 			res_single.append(round(nltk.translate.meteor_score.single_meteor_score(ref, trad_cible, gamma=0), 3))
