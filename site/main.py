@@ -40,12 +40,19 @@ async def root(request: Request): # il faut avoir une fonction root pour le lien
 async def root(request: Request):
 	return templates.TemplateResponse("home.html", {"request": request})
 
-
 # GET
 @app.get("/translate", response_class=HTMLResponse)
 async def api_trad(request: Request):
 	return templates.TemplateResponse("translate.html", {"request":request})
 
+@app.get("/presentation", response_class=HTMLResponse)
+async def presentation(request: Request):
+	return templates.TemplateResponse("presentation.html", {"request":request})
+
+@app.get("/history", response_class=HTMLResponse)
+async def history(request: Request):
+	return templates.TemplateResponse("history.html", {"request":request})
+	
 # googletrans # 
 @app.post("/translate")
 async def translate_text(request: Request):
