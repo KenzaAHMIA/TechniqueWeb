@@ -45,10 +45,10 @@ curl -X POST -H 'Content-type:application/json' --data-binary '{ "add-field": [{
 ### Étape 3 : Installer les dépendances
 
 1. Depuis le dossier parent du projet /TechniqueWeb.
-2. Installez les librairies et modules requis à l'aide de la commande :
+2. Installez les librairies et modules requis :
 
 ```bash
-pip install -r requirements.txt
+requirements.txt
 ```
 
 ### Étape 4 : Lancer le serveur
