@@ -96,7 +96,8 @@ $(document).ready(function () {
   // ----------------- translatePlus -----------------
   // Variables de la requête HTTP à envoyer à translatePlus
   const apiUrl_tp = "https://api.translateplus.io/v1/translate";
-  const apiKey_tp = "83168afac2c13b8117482eb869bf5872f144ae5c";
+  //const apiKey_tp = "83168afac2c13b8117482eb869bf5872f144ae5c";
+  const apiKey_tp = "6c9fbb8e3af84b6fac6ec236558ec5bf20384866";
 
   // Fonction qui appelle l'API de translatePlus
   // et écrit dans la balise de résultat la traduction
@@ -104,7 +105,7 @@ $(document).ready(function () {
   // renvoyer une valeur de i. Soit i + 1 si l'API a réussi,
   // soit i si elle n'a pas réussi.
   function getTranslatePlus(text, target_language, i) {
-    /*var lang = translatePlusLang[target_language];
+  var lang = translatePlusLang[target_language];
   var data = {
    text: text,
    source: "auto", // Détection automatique de la langue par translatePlus
@@ -133,14 +134,15 @@ $(document).ready(function () {
      console.error('Error:', error);
      getGoogletrans(text, target_language, i);
    });
-   */
 
     // Commenter le code précédent et utiliser ce code en cas de débugage d'une
     // autre API afin et décommenter les deux lignes suivantes afin
     // d'économiser des requêtes HTTP vers translatePlus
+    /*
     add_translation("Debug mode", "translatePlus", i);
     hideSpinner();
     getGoogletrans(text, target_language, i + 1);
+    */
   }
 
   // ----------------------- googletrans  -----------------------
